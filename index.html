@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Robot Learning Mastery — 3-Month Study Plan</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=JetBrains+Mono:wght@300;400;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c0f;
+    --surface: #111418;
+    --surface2: #181c22;
+    --border: #1e2430;
+    --accent: #e8c547;
+    --accent2: #4e9ff5;
+    --accent3: #7ef0a4;
+    --accent4: #f07e7e;
+    --text: #e8eaf0;
+    --text-dim: #8a90a0;
+    --text-faint: #3a4050;
+    --m1: #e8c547;
+    --m2: #4e9ff5;
+    --m3: #7ef0a4;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.7;
+    padding: 0;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  .container { max-width: 1100px; margin: 0 auto; padding: 60px 40px; }
+
+  /* Header */
+  .header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 50px;
+    margin-bottom: 60px;
+    position: relative;
+  }
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0;
+    width: 120px; height: 2px;
+    background: var(--accent);
+  }
+  .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 5vw, 58px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .subtitle {
+    font-size: 12px;
+    color: var(--text-dim);
+    font-weight: 300;
+    max-width: 600px;
+    margin-bottom: 30px;
+  }
+  .meta-pills {
+    display: flex; gap: 12px; flex-wrap: wrap;
+  }
+  .pill {
+    border: 1px solid var(--border);
+    padding: 5px 14px;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    border-radius: 2px;
+  }
+  .pill.accent { border-color: var(--accent); color: var(--accent); }
+  .pill.accent2 { border-color: var(--accent2); color: var(--accent2); }
+  .pill.accent3 { border-color: var(--accent3); color: var(--accent3); }
+
+  /* Overview grid */
+  .overview {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 60px;
+  }
+  .ov-cell {
+    background: var(--surface);
+    padding: 24px 28px;
+  }
+  .ov-label {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 8px;
+  }
+  .ov-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1;
+  }
+  .ov-sub { font-size: 11px; color: var(--text-dim); margin-top: 4px; }
+
+  /* Section headers */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 30px;
+    margin-top: 70px;
+  }
+  .section-header:first-of-type { margin-top: 0; }
+  .section-num {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* Resource cards */
+  .resources-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 16px;
+    margin-bottom: 60px;
+  }
+  .resource-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 22px 24px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .resource-card:hover { border-color: rgba(232,197,71,0.3); }
+  .resource-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+  }
+  .resource-card.m1::before { background: var(--m1); }
+  .resource-card.m2::before { background: var(--m2); }
+  .resource-card.m3::before { background: var(--m3); }
+  .resource-card.all::before { background: linear-gradient(to bottom, var(--m1), var(--m2), var(--m3)); }
+
+  .res-tag {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 2px;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+  .res-tag.course { background: rgba(78,159,245,0.15); color: var(--accent2); }
+  .res-tag.paper { background: rgba(126,240,164,0.15); color: var(--accent3); }
+  .res-tag.book { background: rgba(232,197,71,0.15); color: var(--accent); }
+  .res-tag.tutorial { background: rgba(240,126,126,0.15); color: var(--accent4); }
+
+  .res-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+    line-height: 1.4;
+  }
+  .res-source {
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .res-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+  .res-url {
+    font-size: 10px;
+    color: var(--text-faint);
+    text-decoration: none;
+    word-break: break-all;
+    display: block;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    margin-top: 10px;
+  }
+
+  /* Month blocks */
+  .month-block {
+    border: 1px solid var(--border);
+    margin-bottom: 40px;
+    overflow: hidden;
+  }
+  .month-header {
+    padding: 20px 28px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .month-header.m1 { background: rgba(232,197,71,0.04); }
+  .month-header.m2 { background: rgba(78,159,245,0.04); }
+  .month-header.m3 { background: rgba(126,240,164,0.04); }
+
+  .month-badge {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+  .m1 .month-badge { background: rgba(232,197,71,0.15); color: var(--m1); border: 1px solid rgba(232,197,71,0.3); }
+  .m2 .month-badge { background: rgba(78,159,245,0.15); color: var(--m2); border: 1px solid rgba(78,159,245,0.3); }
+  .m3 .month-badge { background: rgba(126,240,164,0.15); color: var(--m3); border: 1px solid rgba(126,240,164,0.3); }
+
+  .month-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .month-meta { font-size: 10px; color: var(--text-dim); margin-left: auto; }
+
+  /* Week rows */
+  .week-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 200px;
+    border-bottom: 1px solid var(--border);
+    min-height: 70px;
+  }
+  .week-row:last-child { border-bottom: none; }
+  .week-num {
+    padding: 18px 20px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .wn-label { font-size: 9px; color: var(--text-faint); letter-spacing: 0.2em; text-transform: uppercase; }
+  .wn-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-faint);
+  }
+  .week-content {
+    padding: 18px 24px;
+    border-right: 1px solid var(--border);
+  }
+  .wc-topic {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+  }
+  .wc-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+  .wc-source {
+    font-size: 10px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .wc-source.m1 { color: var(--m1); }
+  .wc-source.m2 { color: var(--m2); }
+  .wc-source.m3 { color: var(--m3); }
+
+  .week-schedule { padding: 18px 20px; }
+  .day-row {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 6px;
+    margin-bottom: 6px;
+    align-items: start;
+  }
+  .day-row:last-child { margin-bottom: 0; }
+  .day-label {
+    font-size: 9px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding-top: 1px;
+  }
+  .day-task { font-size: 10px; color: var(--text-dim); line-height: 1.5; }
+
+  /* Papers section */
+  .papers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 12px;
+    margin-bottom: 40px;
+  }
+  .paper-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 18px 20px;
+    border-left: 3px solid var(--accent3);
+  }
+  .paper-title {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .paper-venue {
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--accent3);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .paper-why { font-size: 10px; color: var(--text-dim); line-height: 1.5; }
+
+  /* Tips */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 60px;
+  }
+  .tip-cell {
+    background: var(--surface);
+    padding: 24px;
+  }
+  .tip-icon { font-size: 20px; margin-bottom: 10px; }
+  .tip-title { font-size: 11px; font-weight: 600; color: var(--text); margin-bottom: 6px; letter-spacing: 0.05em; }
+  .tip-text { font-size: 10px; color: var(--text-dim); line-height: 1.6; }
+
+  /* Footer */
+  .footer {
+    border-top: 1px solid var(--border);
+    padding-top: 30px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: var(--text-faint);
+    letter-spacing: 0.1em;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dim);
+  }
+
+  @media (max-width: 700px) {
+    .container { padding: 30px 20px; }
+    .overview { grid-template-columns: 1fr; }
+    .week-row { grid-template-columns: 1fr; }
+    .week-num, .week-content { border-right: none; border-bottom: 1px solid var(--border); }
+    .week-schedule { display: none; }
+    .tips-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 28px; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .container > * { animation: fadeUp 0.5s ease both; }
+  .container > *:nth-child(2) { animation-delay: 0.05s; }
+  .container > *:nth-child(3) { animation-delay: 0.1s; }
+  .container > *:nth-child(4) { animation-delay: 0.15s; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="eyebrow">// Study Curriculum v1.0</div>
+    <h1>Mastering <em>Robot Learning</em>,<br>Embodied AI & Legged Robots</h1>
+    <p class="subtitle">A rigorous 3-month self-study program built exclusively from free, openly accessible materials published by MIT, Carnegie Mellon University, ETH Zurich, Stanford, and UC Berkeley.</p>
+    <div class="meta-pills">
+      <div class="pill accent">3 Months</div>
+      <div class="pill accent2">2 hrs/day · Mon–Fri</div>
+      <div class="pill accent3">~65 Study Sessions</div>
+      <div class="pill">100% Free Resources</div>
+      <div class="pill">Reputable Universities Only</div>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <div class="overview">
+    <div class="ov-cell">
+      <div class="ov-label">Total Study Sessions</div>
+      <div class="ov-value">65</div>
+      <div class="ov-sub">Weekdays only · ~130 hours</div>
+    </div>
+    <div class="ov-cell">
+      <div class="ov-label">Core Courses</div>
+      <div class="ov-value">7</div>
+      <div class="ov-sub">MIT · CMU · ETH Zurich · Stanford</div>
+    </div>
+    <div class="ov-cell">
+      <div class="ov-label">Landmark Papers</div>
+      <div class="ov-value">15+</div>
+      <div class="ov-sub">NeurIPS · ICRA · CoRL · RSS</div>
+    </div>
+  </div>
+
+  <!-- Curriculum Resources -->
+  <div class="section-header">
+    <span class="section-num">00 —</span>
+    <span class="section-title">Core Curriculum Resources</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="resources-grid">
+
+    <div class="resource-card m1">
+      <div class="res-tag course">Video Course</div>
+      <div class="res-title">MIT 6.S191: Introduction to Deep Learning</div>
+      <div class="res-source">MIT CSAIL</div>
+      <div class="res-desc">Annual bootcamp with video lectures, slides, and Python/TensorFlow labs. Covers CNNs, RNNs, generative models, and reinforcement learning — the essential neural foundations for all robot learning.</div>
+      <a class="res-url" href="http://introtodeeplearning.com" target="_blank">↗ introtodeeplearning.com</a>
+    </div>
+
+    <div class="resource-card m1">
+      <div class="res-tag course">Video Course</div>
+      <div class="res-title">Stanford CS234: Reinforcement Learning</div>
+      <div class="res-source">Stanford University</div>
+      <div class="res-desc">Full RL theory from MDPs to deep RL, taught by Emma Brunskill. Lecture slides, videos on YouTube, and coding assignments all freely available. The definitive RL curriculum.</div>
+      <a class="res-url" href="https://web.stanford.edu/class/cs234/" target="_blank">↗ web.stanford.edu/class/cs234</a>
+    </div>
+
+    <div class="resource-card m1">
+      <div class="res-tag book">Free Textbook</div>
+      <div class="res-title">Reinforcement Learning: An Introduction (Sutton & Barto)</div>
+      <div class="res-source">University of Alberta</div>
+      <div class="res-desc">The canonical RL textbook. Available completely free as a PDF. Covers bandits, dynamic programming, TD learning, and policy gradient methods with clarity and rigor.</div>
+      <a class="res-url" href="http://incompleteideas.net/book/the-book-2nd.html" target="_blank">↗ incompleteideas.net/book</a>
+    </div>
+
+    <div class="resource-card m2">
+      <div class="res-tag course">Video Course</div>
+      <div class="res-title">MIT 6.8210: Underactuated Robotics</div>
+      <div class="res-source">MIT · Prof. Russ Tedrake</div>
+      <div class="res-desc">The crown jewel of robot learning theory. Covers nonlinear dynamics, optimal control, RL for legged locomotion, manipulation, and flying machines. All lectures on YouTube, interactive online textbook, and Drake-based exercises.</div>
+      <a class="res-url" href="https://underactuated.csail.mit.edu" target="_blank">↗ underactuated.csail.mit.edu</a>
+    </div>
+
+    <div class="resource-card m2">
+      <div class="res-tag course">Video Course</div>
+      <div class="res-title">CMU 10-703: Deep RL and Control</div>
+      <div class="res-source">Carnegie Mellon University</div>
+      <div class="res-desc">Unifies computer vision, RL, and robot control. Covers imitation learning, model-based RL, sim-to-real transfer, and locomotion policy learning. Lecture notes and slides publicly available.</div>
+      <a class="res-url" href="https://cmudeeprl.github.io/703website_f24/" target="_blank">↗ cmudeeprl.github.io/703website_f24</a>
+    </div>
+
+    <div class="resource-card m2">
+      <div class="res-tag course">Video Course + Notebooks</div>
+      <div class="res-title">CMU 16-745: Optimal Control & Reinforcement Learning</div>
+      <div class="res-source">Carnegie Mellon · Prof. Zac Manchester</div>
+      <div class="res-desc">How to make robots move with speed, efficiency, and robustness. Covers trajectory optimization, LQR, MPC, and policy gradient methods. All video recordings + Jupyter notebook lecture notes free on GitHub.</div>
+      <a class="res-url" href="https://optimalcontrol.ri.cmu.edu" target="_blank">↗ optimalcontrol.ri.cmu.edu</a>
+    </div>
+
+    <div class="resource-card m3">
+      <div class="res-tag course">Video Course</div>
+      <div class="res-title">ETH Zurich: Robot Learning (2025/2026)</div>
+      <div class="res-source">ETH Zurich · Prof. Oier Mees</div>
+      <div class="res-desc">The most current course available. Covers imitation learning, diffusion policies, Vision-Language-Action (VLA) models, and foundation models for robotics. Includes student-led paper discussions and guest lectures.</div>
+      <a class="res-url" href="https://cvg.ethz.ch/lectures/Robot-Learning/" target="_blank">↗ cvg.ethz.ch/lectures/Robot-Learning</a>
+    </div>
+
+    <div class="resource-card m3">
+      <div class="res-tag course">Video Course (edX/MOOC)</div>
+      <div class="res-title">ETH Zurich: Autonomous Mobile Robots</div>
+      <div class="res-source">ETH Zurich · Prof. Roland Siegwart</div>
+      <div class="res-desc">Classic foundation course covering locomotion, kinematics, SLAM, and motion planning for wheeled, legged, and aerial robots. Free audit available on edX with all lecture videos and slides.</div>
+      <a class="res-url" href="https://www.edx.org/learn/autonomous-robotics/eth-zurich-autonomous-mobile-robots" target="_blank">↗ edx.org — ETH Autonomous Mobile Robots</a>
+    </div>
+
+    <div class="resource-card all">
+      <div class="res-tag tutorial">Hands-on Tutorial</div>
+      <div class="res-title">OpenAI Spinning Up in Deep RL</div>
+      <div class="res-source">OpenAI / UC Berkeley</div>
+      <div class="res-desc">Step-by-step educational resource with clean Python implementations of PPO, SAC, TD3, and more. The best place to go from RL theory to working code. Essential companion to any RL course.</div>
+      <a class="res-url" href="https://spinningup.openai.com" target="_blank">↗ spinningup.openai.com</a>
+    </div>
+
+    <div class="resource-card all">
+      <div class="res-tag course">Seminar Series (YouTube)</div>
+      <div class="res-title">MIT Embodied Intelligence Seminar Series</div>
+      <div class="res-source">MIT CSAIL — Embodied Intelligence Group</div>
+      <div class="res-desc">Ongoing talks from top researchers at MIT, Berkeley, CMU, and industry labs. Covers the full spectrum of embodied AI: locomotion, dexterous manipulation, sim-to-real, and foundation models for physical agents.</div>
+      <a class="res-url" href="https://ei.csail.mit.edu/seminars.html" target="_blank">↗ ei.csail.mit.edu/seminars</a>
+    </div>
+
+    <div class="resource-card all">
+      <div class="res-tag course">Video Lecture Series</div>
+      <div class="res-title">DeepMind / UCL: Reinforcement Learning Lecture Series</div>
+      <div class="res-source">DeepMind & University College London</div>
+      <div class="res-desc">High-quality lecture series by Hado van Hasselt and others covering RL from foundations to advanced topics including multi-agent RL and model-based approaches. All videos freely on YouTube.</div>
+      <a class="res-url" href="https://www.youtube.com/playlist?list=PLqYmG7hTraZDVH599EItlEWsUOsJbAodm" target="_blank">↗ YouTube — DeepMind RL Lecture Series</a>
+    </div>
+
+    <div class="resource-card all">
+      <div class="res-tag tutorial">Sim Environment</div>
+      <div class="res-title">Isaac Lab / MuJoCo + IsaacGym Tutorials</div>
+      <div class="res-source">NVIDIA / DeepMind / ETH Zurich</div>
+      <div class="res-desc">Free simulation environments used in landmark legged locomotion papers. ETH Zurich's legged gym (ANYmal) and IsaacGym tutorials are freely available on GitHub and essential for hands-on practice.</div>
+      <a class="res-url" href="https://github.com/leggedrobotics/legged_gym" target="_blank">↗ github.com/leggedrobotics/legged_gym</a>
+    </div>
+
+  </div>
+
+  <!-- Month 1 -->
+  <div class="section-header">
+    <span class="section-num">01 —</span>
+    <span class="section-title">Month 1: Foundations</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="month-block">
+    <div class="month-header m1">
+      <div class="month-badge">Month 1</div>
+      <div class="month-title">Deep Learning · Reinforcement Learning · Robot Dynamics</div>
+      <div class="month-meta">Weeks 1–4 · ~20 sessions</div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">01</div></div>
+      <div class="week-content">
+        <div class="wc-topic">Deep Learning Foundations for Robotics</div>
+        <div class="wc-desc">Build the neural architecture knowledge needed for robot learning. Focus on CNNs (visual perception), RNNs/Transformers (sequential decision making), and practical PyTorch coding. Complete MIT 6.S191 labs.</div>
+        <div class="wc-source m1">📚 MIT 6.S191 — Lectures 1–6 (introtodeeplearning.com) + lab notebooks</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">6.S191 L1: Intro to DL + L2: RNNs & Sequences</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">6.S191 L3: CNNs + visual perception lab</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">6.S191 L4: Generative Models + GANs</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">6.S191 L5: Transformers + attention mechanisms</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">6.S191 L6: Deep RL intro + review & coding lab</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">02</div></div>
+      <div class="week-content">
+        <div class="wc-topic">RL Theory I — MDPs, Dynamic Programming & Tabular Methods</div>
+        <div class="wc-desc">Master the mathematical foundations: Markov Decision Processes, Bellman equations, value iteration, policy iteration, and TD learning. Read Sutton & Barto Chapters 1–7 alongside CS234.</div>
+        <div class="wc-source m1">📚 Stanford CS234 — Lectures 1–5 (YouTube) + Sutton & Barto Ch. 1–7</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">CS234 L1: Intro to RL + MDPs. S&B Ch.1–2</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">CS234 L2: Value functions & Bellman. S&B Ch.3–4</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">CS234 L3: Dynamic programming. S&B Ch.4–5</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">CS234 L4: Model-free prediction (TD, MC). S&B Ch.6</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">CS234 L5: Model-free control, Q-learning. S&B Ch.7</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">03</div></div>
+      <div class="week-content">
+        <div class="wc-topic">RL Theory II — Deep RL, Policy Gradients & Actor-Critic</div>
+        <div class="wc-desc">Transition to deep reinforcement learning. Study DQN, policy gradient theorem, REINFORCE, PPO, SAC, and TD3. Implement algorithms using OpenAI Spinning Up tutorials.</div>
+        <div class="wc-source m1">📚 Stanford CS234 L6–10 + Spinning Up in Deep RL (spinningup.openai.com)</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">CS234 L6: Value function approximation + DQN</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">CS234 L7: Policy gradient. Spinning Up: Part 1</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">CS234 L8: Actor-Critic, A2C/A3C. Implement PPO</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">CS234 L9: Advanced policy gradients (TRPO/PPO)</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">CS234 L10: SAC, TD3. Spinning Up coding exercises</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">04</div></div>
+      <div class="week-content">
+        <div class="wc-topic">Robot Dynamics & Kinematics Foundations</div>
+        <div class="wc-desc">Ground yourself in the physics of mobile robots: locomotion kinematics, rigid body dynamics, forward/inverse kinematics, and classical control. Use ETH Zurich's Autonomous Mobile Robots as foundation.</div>
+        <div class="wc-source m1">📚 ETH Zurich AMR (edX) — Weeks 1–5 + Robot Dynamics (rsl.ethz.ch)</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">AMR: Locomotion types + wheeled robot kinematics</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">AMR: Legged robot kinematics + gaits overview</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">AMR: Sensors, perception, odometry</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">AMR: Localization + probabilistic state estimation</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">AMR: SLAM fundamentals + motion planning intro</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Month 2 -->
+  <div class="section-header">
+    <span class="section-num">02 —</span>
+    <span class="section-title">Month 2: Core Robot Learning</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="month-block">
+    <div class="month-header m2">
+      <div class="month-badge">Month 2</div>
+      <div class="month-title">Optimal Control · Deep RL for Robots · Legged Locomotion</div>
+      <div class="month-meta">Weeks 5–9 · ~25 sessions</div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">05</div></div>
+      <div class="week-content">
+        <div class="wc-topic">Underactuated Robotics I — Nonlinear Dynamics & Optimal Control</div>
+        <div class="wc-desc">Begin MIT's premier robotics course. Study nonlinear dynamics, phase portraits, Lyapunov stability, energy-shaping control, and LQR. This course fundamentally changes how you think about robot motion.</div>
+        <div class="wc-source m2">📚 MIT 6.8210 (underactuated.csail.mit.edu) — Lectures 1–7 + Drake exercises</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">MIT 6.8210 L1-2: Nonlinear dynamics, pendulum</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">MIT 6.8210 L3: Lyapunov stability analysis</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">MIT 6.8210 L4-5: Simple walking models</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">MIT 6.8210 L6: LQR + HJB equation</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">MIT 6.8210 L7: Drake tutorial + pset 1</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">06</div></div>
+      <div class="week-content">
+        <div class="wc-topic">Underactuated Robotics II — Trajectory Optimization & Legged Robots</div>
+        <div class="wc-desc">Deep dive into trajectory optimization (direct collocation, shooting methods), motion planning for legged systems, ZMP-based humanoid control, and the capturability framework. Key chapter: highly-articulated legged robots.</div>
+        <div class="wc-source m2">📚 MIT 6.8210 — Lectures 8–16 (humanoids chapter) + online textbook notes</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">MIT 6.8210 L8-9: Trajectory optimization methods</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">MIT 6.8210 L10-11: Direct collocation, SQP</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">MIT 6.8210 L12: Legged robots, ZMP control</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">MIT 6.8210 L13-14: Footstep planning + quadrupeds</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">MIT 6.8210 L15-16: RL for locomotion + pset 2</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">07</div></div>
+      <div class="week-content">
+        <div class="wc-topic">CMU Optimal Control — Numerical Methods & MPC</div>
+        <div class="wc-desc">Study CMU 16-745's rigorous treatment of optimal control. Focus on LQR, iLQR, Model Predictive Control (MPC), and state estimation. Work through the Jupyter notebook assignments on GitHub.</div>
+        <div class="wc-source m2">📚 CMU 16-745 (optimalcontrol.ri.cmu.edu) — All lecture videos + notebooks</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">CMU 16-745: Discrete dynamics + stability</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">CMU 16-745: LQR + Riccati equation derivation</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">CMU 16-745: iLQR, DDP + trajectory rollouts</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">CMU 16-745: Model Predictive Control (MPC)</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">CMU 16-745: Notebook exercises HW1-2</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">08</div></div>
+      <div class="week-content">
+        <div class="wc-topic">CMU Deep RL for Control — Imitation Learning & Model-Based RL</div>
+        <div class="wc-desc">Study CMU 10-703's robotics-focused RL. Critical topics: behavioral cloning, DAgger (dataset aggregation), model-based RL (MBPO, Dreamer), and sim-to-real transfer strategies.</div>
+        <div class="wc-source m2">📚 CMU 10-703 (cmudeeprl.github.io) — Lecture slides + notes on imitation & MBRL</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">CMU 10-703: Imitation learning, behavioral cloning</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">CMU 10-703: DAgger + inverse RL</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">CMU 10-703: Model-based RL, MBPO</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">CMU 10-703: Dreamer / world models</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">CMU 10-703: Sim-to-real, domain randomization</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">09</div></div>
+      <div class="week-content">
+        <div class="wc-topic">Landmark Papers I — Legged Locomotion Breakthroughs</div>
+        <div class="wc-desc">Read and deeply study the seminal papers that defined modern legged locomotion. Understand how ETH Zurich's ANYmal and MIT's Mini Cheetah/Spot learned to walk, run, and traverse rough terrain via RL.</div>
+        <div class="wc-source m2">📄 ETH ANYmal papers + MIT Cheetah + CMU quadruped + legged_gym codebase</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">Paper: "Learning to Walk in Minutes" (ETH, Kumar)</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">Paper: "Learning Agile Locomotion" (ETH ANYmal)</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">Paper: "MIT Cheetah" + legged_gym codebase tour</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">Paper: "Parkour with Legged Robots" (ETH, 2023)</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">Implementation: Run legged_gym in IsaacGym</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Month 3 -->
+  <div class="section-header">
+    <span class="section-num">03 —</span>
+    <span class="section-title">Month 3: Embodied AI & Frontier Research</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="month-block">
+    <div class="month-header m3">
+      <div class="month-badge">Month 3</div>
+      <div class="month-title">VLAs · Foundation Models · Advanced Locomotion · Capstone</div>
+      <div class="month-meta">Weeks 10–13 · ~20 sessions</div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">10</div></div>
+      <div class="week-content">
+        <div class="wc-topic">ETH Robot Learning — Imitation, Diffusion Policies & Flow Matching</div>
+        <div class="wc-desc">Study ETH's 2025/26 Robot Learning course, the most current curriculum available. Learn about imitation learning at scale, diffusion policies for robot manipulation, action chunking transformers (ACT), and flow matching.</div>
+        <div class="wc-source m3">📚 ETH Robot Learning 2026 (cvg.ethz.ch) + course GitHub: mees-robot-learning-course</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">ETH RL: Imitation learning at scale + BC</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">ETH RL: Diffusion Policy paper + theory</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">ETH RL: ACT — Action Chunking w/ Transformers</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">ETH RL: Flow matching for robot learning</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">ETH RL: Policy optimization + curriculum learning</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">11</div></div>
+      <div class="week-content">
+        <div class="wc-topic">Vision-Language-Action Models & Foundation Models for Robotics</div>
+        <div class="wc-desc">Master the frontier of embodied AI: OpenVLA, RT-2, π0, and Open X-Embodiment. Study how large vision-language models are being adapted into general-purpose robot controllers through the ETH course and original papers.</div>
+        <div class="wc-source m3">📄 OpenVLA (Stanford/Berkeley) · RT-1/RT-2 (Google) · π0 (Physical Intelligence) · Open X-Embodiment</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">ETH RL: Large pretrained models for robotics</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">Paper: RT-1 + RT-2 (Google DeepMind, 2022/23)</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">Paper: Open X-Embodiment + OpenVLA</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">Paper: π0 — Vision-Language-Action Flow Model</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">ETH RL: VLA guest lecture + discussion</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">12</div></div>
+      <div class="week-content">
+        <div class="wc-topic">Advanced Legged Locomotion + Whole-Body Control</div>
+        <div class="wc-desc">Synthesize everything into advanced locomotion topics: whole-body control, hierarchical control with RL + MPC, humanoid locomotion, terrain adaptation, and loco-manipulation. Study ETH RSL's recent research directly.</div>
+        <div class="wc-source m3">📄 ETH RSL papers + MIT Atlas/Humanoid papers + CMU humanoid locomotion</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">Paper: Whole-body control + contact planning</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">Paper: Hierarchical RL + MPC for quadrupeds</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">MIT EI Seminars: Humanoid locomotion talks</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">Paper: ANYmal extreme parkour + field deployment</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">ETH RSL: Loco-manipulation, arm + legs</div></div>
+      </div>
+    </div>
+
+    <div class="week-row">
+      <div class="week-num"><div class="wn-label">Week</div><div class="wn-num">13</div></div>
+      <div class="week-content">
+        <div class="wc-topic">Capstone Week — Synthesis, Implementation & Future Directions</div>
+        <div class="wc-desc">Consolidate 3 months of learning. Build your own RL locomotion agent in IsaacGym/MuJoCo, read the latest CoRL/ICRA 2025 papers of interest, and create a personal research reading list for continued study.</div>
+        <div class="wc-source m3">📚 IsaacGym + legged_gym + CoRL 2024/2025 proceedings + your own mini-project</div>
+      </div>
+      <div class="week-schedule">
+        <div class="day-row"><div class="day-label">Mon</div><div class="day-task">Mini-project: Train hopper/ant in MuJoCo with PPO</div></div>
+        <div class="day-row"><div class="day-label">Tue</div><div class="day-task">Mini-project: Add terrain curriculum, test robustness</div></div>
+        <div class="day-row"><div class="day-label">Wed</div><div class="day-task">CoRL 2024: Read 3 selected papers of interest</div></div>
+        <div class="day-row"><div class="day-label">Thu</div><div class="day-task">MIT EI Seminars: 2 recent talks on frontier topics</div></div>
+        <div class="day-row"><div class="day-label">Fri</div><div class="day-task">Full review: build personal knowledge map + next steps</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Breakthrough Papers -->
+  <div class="section-header">
+    <span class="section-num">04 —</span>
+    <span class="section-title">Must-Read Breakthrough Papers</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="papers-grid">
+    <div class="paper-card">
+      <div class="paper-venue">NeurIPS 2019 · ETH Zurich</div>
+      <div class="paper-title">Learning Agile and Dynamic Motor Skills for Legged Robots (ANYmal)</div>
+      <div class="paper-why">The foundational paper showing RL can train quadruped locomotion from scratch in simulation and transfer to real hardware. Introduced the teacher-student training paradigm.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">Science Robotics 2022 · ETH Zurich</div>
+      <div class="paper-title">Learning to Walk in Minutes Using Massively Parallel Deep RL</div>
+      <div class="paper-why">Demonstrates GPU-parallel RL training on hundreds of robots simultaneously. The paper that made locomotion learning practical and fast.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">Science 2022 · ETH Zurich</div>
+      <div class="paper-title">Parkour with Legged Robots (ANYmal Extreme Parkour)</div>
+      <div class="paper-why">Shows robots learning to jump, climb, and vault over obstacles. Exemplifies exteroceptive + proprioceptive multi-modal policy learning for agile locomotion.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">CoRL 2022 · Stanford / CMU</div>
+      <div class="paper-title">Diffusion Policy: Visuomotor Policy Learning via Action Diffusion</div>
+      <div class="paper-why">Introduced score-matching diffusion models for robot manipulation. Transformed imitation learning — now a core method in manipulation and loco-manipulation.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">RSS 2023 · Stanford / CMU</div>
+      <div class="paper-title">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware (ACT)</div>
+      <div class="paper-why">Action Chunking with Transformers — achieves human-level dexterity with imitation learning. Simple, powerful, and widely adopted.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">arXiv 2022 · Google DeepMind</div>
+      <div class="paper-title">RT-1: Robotics Transformer for Real-World Control at Scale</div>
+      <div class="paper-why">First demonstration of training a single transformer-based robot policy on thousands of diverse real tasks. Established the "robotics foundation model" paradigm.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">arXiv 2023 · Google DeepMind</div>
+      <div class="paper-title">RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</div>
+      <div class="paper-why">Showed VLMs (PaLM-E) can directly output robot actions. Bridges internet-scale knowledge with physical manipulation. Landmark for embodied AI.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">ICRA 2024 · Berkeley + Stanford + Google</div>
+      <div class="paper-title">Open X-Embodiment: Robotic Learning Datasets and RT-X Models</div>
+      <div class="paper-why">Cross-embodiment dataset and model trained on 22 different robots. Demonstrates generalization across robot types — a new paradigm for embodied AI.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">arXiv 2024 · Physical Intelligence</div>
+      <div class="paper-title">π0: A Vision-Language-Action Flow Model for General Robot Control</div>
+      <div class="paper-why">Most recent VLA breakthrough — flow matching + pre-trained VLM for general manipulation. Represents the current state of the art in robot learning.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">ICRA 2024 · Berkeley / Stanford</div>
+      <div class="paper-title">OpenVLA: An Open-Source Vision-Language-Action Model</div>
+      <div class="paper-why">Fully open-source VLA — code, weights, and data. Best resource to practically study and fine-tune vision-language-action models for robotics.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">NeurIPS 2020 · Berkeley</div>
+      <div class="paper-title">Dream to Control: Learning Behaviors by Latent Imagination (DreamerV1/V2)</div>
+      <div class="paper-why">The canonical world model paper. Model-based RL via learning a latent world model in a dream. Foundational for understanding imagination-based planning.</div>
+    </div>
+    <div class="paper-card">
+      <div class="paper-venue">CoRL 2021 · ETH Zurich RSL</div>
+      <div class="paper-title">Rapid Motor Adaptation for Legged Robots (RMA)</div>
+      <div class="paper-why">Introduced online adaptation module for legged locomotion. Allows robots to adapt to new terrains in milliseconds. Hugely influential in field deployments.</div>
+    </div>
+  </div>
+
+  <!-- Study Tips -->
+  <div class="section-header">
+    <span class="section-num">05 —</span>
+    <span class="section-title">Study Strategy & Practical Tips</span>
+    <span class="section-line"></span>
+  </div>
+  <div class="tips-grid">
+    <div class="tip-cell">
+      <div class="tip-icon">⚡</div>
+      <div class="tip-title">Active Coding from Day One</div>
+      <div class="tip-text">Don't just watch lectures — open a Jupyter notebook alongside every session. Implement algorithms like PPO, LQR, and trajectory optimization from scratch. The MIT and CMU courses provide Google Colab-ready notebooks you can run immediately.</div>
+    </div>
+    <div class="tip-cell">
+      <div class="tip-icon">📄</div>
+      <div class="tip-title">Paper Reading Protocol</div>
+      <div class="tip-text">Read papers in three passes: (1) title, abstract, figures only; (2) full read skipping proofs; (3) deep dive on methods. Always look up the paper's GitHub repo and run the code. Use arXiv's related papers feature to find follow-up work.</div>
+    </div>
+    <div class="tip-cell">
+      <div class="tip-icon">🔁</div>
+      <div class="tip-title">Simulation is Your Lab</div>
+      <div class="tip-text">Set up MuJoCo + Gymnasium in Week 1 and never stop using it. ETH's legged_gym in IsaacGym is free. You don't need real hardware — the best research groups train entirely in simulation and deploy zero-shot to real robots.</div>
+    </div>
+    <div class="tip-cell">
+      <div class="tip-icon">🏛️</div>
+      <div class="tip-title">Follow Research Groups Directly</div>
+      <div class="tip-text">Subscribe to ETH RSL (rsl.ethz.ch), MIT Robot Locomotion Group, CMU Robotics Institute, Berkeley BAIR Lab, and Stanford REAL Lab. They post preprints, code, and video results as they happen — your live curriculum for months 2-3.</div>
+    </div>
+    <div class="tip-cell">
+      <div class="tip-icon">🗓️</div>
+      <div class="tip-title">Daily 2-Hour Session Structure</div>
+      <div class="tip-text">First 60 mins: lecture video or paper reading with notes. Second 60 mins: hands-on coding, exercises, or implementing a concept from the reading. Never let a session be purely passive. End each week by summarizing 3 key ideas in writing.</div>
+    </div>
+    <div class="tip-cell">
+      <div class="tip-icon">🎯</div>
+      <div class="tip-title">Build a Personal Project</div>
+      <div class="tip-text">By Month 2, start a personal project: train a quadruped or biped in IsaacGym, implement a diffusion policy for a manipulation task, or fine-tune OpenVLA. A working demo is worth 10x the knowledge from passive reading alone.</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-logo">Robot Learning Mastery</div>
+    <div>All resources are free &amp; publicly accessible · MIT · CMU · ETH Zurich · Stanford · Berkeley</div>
+  </div>
+
+</div>
+</body>
+</html>
